@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from mechanize import Browser
 import sys
 import meaningcloud
 
@@ -13,10 +14,15 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
-#API stuff
+#WORKING WITH THE CONTENT ON THE WEBSITE
+link = 'https://en.wikipedia.org/wiki/Bee_Movie' #yes i am using the plot of the bee movie for the sample text lmao
+
+br = Browser()
+br.open(link)
+article_title = br.title()
+
 model = 'IAB_en' #basically specifies that the language is english
 key = '9cb4dbf4b67056958232d52630d21988' #to access any API you need to pass your personal key into the request. This is our key
-link = 'https://en.wikipedia.org/wiki/Bee_Movie' #yes i am using the plot of the bee movie for the sample text lmao
 summary = ''
 
 summarization_response = meaningcloud.SummarizationResponse(meaningcloud.SummarizationRequest(key, sentences=3, url=link).sendReq())
