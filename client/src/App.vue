@@ -18,7 +18,7 @@
             <v-card>
               <v-card-title>Add New Article</v-card-title>
               <v-card-text>
-                <v-form class = "px-3">
+                <v-form class = "px-3" ref = "form">
                    <div v-if= "noerrors">
                     <h1>Please correct the following error(s):</h1>
                     <ul>
@@ -26,9 +26,13 @@
                     </ul>
                   </div>
                   <v-text-field label = "Insert URL" v-model = "URL"
-                  prepend-icon = "link">
+                  prepend-icon = "link" :rules = "[
+      (value) => !!value || 'Required.',
+      (value) => this.isValidURL(value),
+    ]">
                   </v-text-field>
-                  <v-btn flat small color = "#FBC02D" @click = "checkForm">Summarize</v-btn>
+                  <v-btn flat small class = "mt-4" color = "#FBC02D"
+                  @click = "submit" :loading = loading>Summarize</v-btn>
                 </v-form>
               </v-card-text>
             </v-card>
@@ -36,7 +40,7 @@
           </div>
       </v-row>
       <h4 class = "text-center mt-2"> News Articles </h4>
-      <v-row>
+      <v-row v-for = "article in articles" :key = "article">
       <v-col cols = 4>
       <v-card class = "mx-6" outlined rounded>
         <v-row justify = "center" align = "center">
@@ -49,23 +53,20 @@
               <div class = "text-right ma-n2 my-n4">
               <v-btn small text right @click = "expand = !expand">
               <v-icon color = "#FBC02D"> expand_more</v-icon></v-btn></div>
-               <h5 class = "mt-4 mr-4 text-left"> Coronavirus:
-                 the first three months as it happened </h5>
+               <h5 class = "mt-4 mr-4 text-left"> {{article.title}} </h5>
                 <div class = "text--secondary text-right mr-6"
                 style = "font-size: 0.65em">NBC News </div>
             </v-col>
           </v-row>
           <v-card-text v-if = "expand" class = " mt-1" style = "font-size: 0.7em">
-                  Show this shitShow this shitShow this shitShow this shitShow this shit
-                  Show this shitShow this shitShow this shitShow this shitShow this
-                  shitShow this shit
-                  Show this shitShow this shitShow this shitShow this shit </v-card-text>
+                   </v-card-text>
             </v-card>
             </v-col>
       </v-row>
     </v-content>
   </v-app>
 </template>
+
 <script>
 // const urlExists = require('url-exists');
 const axios = require('axios');
@@ -76,33 +77,23 @@ export default {
     expand: false,
     dialog: false,
     URL: '',
-    errors: [],
-    noerrors: false,
+    inputRules: [
+      (value) => !!value || 'Required.',
+      (value) => !this.isValidURL(value),
+    ],
+    loading: false,
+    article: [
+      { title: 'Title 1', text: 'Show this shitShow this shitShow this shitShow this shitShow this shit Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+    ],
   }),
 
   methods: {
-    checkForm(e) {
-      console.log('errors');
-      this.errors = [];
-      this.noerrors = false;
-      console.log('got past array');
-      if (this.URL === '') {
-        this.errors.push('URL required.');
-      }
-      console.log('got past first if');
-
-      if (this.isValidURL(this.URL)) {
-        console.log('in valid URL');
-        this.errors.push('Valid URL required');
-        console.log('errors');
-      }
-
-      if (!this.errors.length) {
-        this.noerrors = true;
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        console.log('you submitted');
         this.fetchText();
-        return true;
       }
-      return e.preventDefault();
     },
 
     isValidURL(str) {
@@ -116,16 +107,19 @@ export default {
     },
 
     fetchText() {
+      console.log('in fetchtext');
       axios.post('http://localhost:8081', {
         URL: this.URL,
       })
         .then((response) => {
-          this.text = response;
+          this.loading = false;
+          this.text = response; // add text and then title and then add to array
+          this.dialog = false;
         });
+      console.log(this.dialog);
     },
   },
 };
-
 </script>
 
 <style scoped>
