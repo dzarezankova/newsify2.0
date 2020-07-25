@@ -19,7 +19,7 @@
               <v-card-title>Add New Article</v-card-title>
               <v-card-text>
                 <v-form class = "px-3">
-                  <div v-if= "errors.length">
+                   <div v-if= "noerrors">
                     <h1>Please correct the following error(s):</h1>
                     <ul>
                       <li v-for= "error in errors" :key = "error">{{ error }}</li>
@@ -67,6 +67,8 @@
   </v-app>
 </template>
 <script>
+// const urlExists = require('url-exists');
+const axios = require('axios');
 
 export default {
   name: 'App',
@@ -75,12 +77,14 @@ export default {
     dialog: false,
     URL: '',
     errors: [],
+    noerrors: false,
   }),
 
   methods: {
     checkForm(e) {
       console.log('errors');
       this.errors = [];
+      this.noerrors = false;
       console.log('got past array');
       if (this.URL === '') {
         this.errors.push('URL required.');
@@ -94,14 +98,30 @@ export default {
       }
 
       if (!this.errors.length) {
+        this.noerrors = true;
+        this.fetchText();
         return true;
       }
-
       return e.preventDefault();
     },
 
-    isValidUrl(value) {
-      return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
+    isValidURL(str) {
+      const pattern = new RegExp('^(https?:\\/\\/)?' // protocol
+      + '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' // domain name
+      + '((\\d{1,3}\\.){3}\\d{1,3}))' // OR ip (v4) address
+      + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' // port and path
+      + '(\\?[;&a-z\\d%_.~+=-]*)?' // query string
+      + '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+      return !!pattern.test(str);
+    },
+
+    fetchText() {
+      axios.post('http://localhost:8081', {
+        URL: this.URL,
+      })
+        .then((response) => {
+          this.text = response;
+        });
     },
   },
 };
