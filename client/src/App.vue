@@ -8,9 +8,25 @@
         summarize covid-19 articles</div>
         </div>
         <div class = "ma-2">
-        <v-btn fab small depressed>
-          <v-icon color = "grey" @click = "popup = true"> add </v-icon>
-        </v-btn> </div>
+            <v-btn fab small depressed @click.stop="dialog = true">
+              <v-icon color = "grey"> add </v-icon>
+            </v-btn>
+            <v-dialog
+              v-model="dialog"
+              max-width="290"
+            >
+            <v-card>
+              <v-card-title>Add New Article</v-card-title>
+              <v-card-text>
+                <v-form class = "px-3">
+                  <v-text-field label = "Insert URL" v-model = "URL"
+                  prepend-icon = "link" :rules = "inputRules"></v-text-field>
+                  <v-btn flat small color = "#FBC02D" @click = "validate">Summarize</v-btn>
+                </v-form>
+              </v-card-text>
+            </v-card>
+            </v-dialog>
+          </div>
       </v-row>
       <h4 class = "text-center mt-2"> News Articles </h4>
       <v-row>
@@ -26,9 +42,9 @@
               <div class = "text-right ma-n2 my-n4">
               <v-btn small text right @click = "expand = !expand">
               <v-icon color = "#FBC02D"> expand_more</v-icon></v-btn></div>
-               <h5 class = "mt-4 mr-2 text-left"> Coronavirus:
+               <h5 class = "mt-4 mr-4 text-left"> Coronavirus:
                  the first three months as it happened </h5>
-                <div class = "text--secondary text-right mr-4"
+                <div class = "text--secondary text-right mr-6"
                 style = "font-size: 0.65em">NBC News </div>
             </v-col>
           </v-row>
@@ -49,11 +65,16 @@ export default {
   name: 'App',
   data: () => ({
     expand: false,
+    dialog: false,
+    URL: '',
+    inputRules: [
+      v => !!v || 'Name is required',
+    ],
   }),
 
-  method: {
-    show() {
-      this.expand = !this.expand;
+  methods: {
+    validate() {
+      this.$refs.form.validate();
     },
   },
 };
