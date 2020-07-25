@@ -9,26 +9,34 @@
         </div>
         <div class = "ma-2">
         <v-btn fab small depressed>
-          <v-icon color = "grey"> add </v-icon>
-        </v-btn>
-        </div>
+          <v-icon color = "grey" @click = "popup = true"> add </v-icon>
+        </v-btn> </div>
       </v-row>
       <h4 class = "text-center mt-2"> News Articles </h4>
       <v-row>
-      <v-col cols = 6>
+      <v-col cols = 4>
       <v-card class = "mx-6" outlined rounded>
         <v-row justify = "center" align = "center">
-            <v-col cols = 4 align = "center">
-            <v-icon color = "#FBC02D" size = "3rem"> alarm </v-icon>
+            <v-col cols = 4 align = "center" justify = "center" class = "mt-4">
+              <v-btn text small depressed>
+            <v-icon color = "#FBC02D" size = "3rem"> delete </v-icon> </v-btn>
+            <div class = "text--secondary mt-2" style = "font-size: 0.65em">Delete </div>
             </v-col>
-            <v-col cols = 8>
+            <v-col cols = 8 align = "center" justify = "center">
               <div class = "text-right ma-n2 my-n4">
-              <v-btn small text right @click = "show">
+              <v-btn small text right @click = "expand = !expand">
               <v-icon color = "#FBC02D"> expand_more</v-icon></v-btn></div>
-               <h5 class = "mt-2 mr-2"> Coronavirus: the first three months as it happened</h5>
-                <div class = "text--secondary mt-1" style = "font-size: 0.65em">NBC News </div>
+               <h5 class = "mt-4 mr-2 text-left"> Coronavirus:
+                 the first three months as it happened </h5>
+                <div class = "text--secondary text-right mr-4"
+                style = "font-size: 0.65em">NBC News </div>
             </v-col>
           </v-row>
+          <v-card-text v-if = "expand" class = " mt-1" style = "font-size: 0.7em">
+                  Show this shitShow this shitShow this shitShow this shitShow this shit
+                  Show this shitShow this shitShow this shitShow this shitShow this
+                  shitShow this shit
+                  Show this shitShow this shitShow this shitShow this shit </v-card-text>
             </v-card>
             </v-col>
       </v-row>
@@ -40,7 +48,14 @@
 export default {
   name: 'App',
   data: () => ({
+    expand: false,
   }),
+
+  method: {
+    show() {
+      this.expand = !this.expand;
+    },
+  },
 };
 </script>
 
