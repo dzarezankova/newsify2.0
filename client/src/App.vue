@@ -19,9 +19,16 @@
               <v-card-title>Add New Article</v-card-title>
               <v-card-text>
                 <v-form class = "px-3">
+                  <div v-if= "errors.length">
+                    <h1>Please correct the following error(s):</h1>
+                    <ul>
+                      <li v-for= "error in errors" :key = "error">{{ error }}</li>
+                    </ul>
+                  </div>
                   <v-text-field label = "Insert URL" v-model = "URL"
-                  prepend-icon = "link" :rules = "inputRules"></v-text-field>
-                  <v-btn flat small color = "#FBC02D" @click = "validate">Summarize</v-btn>
+                  prepend-icon = "link">
+                  </v-text-field>
+                  <v-btn flat small color = "#FBC02D" @click = "checkForm">Summarize</v-btn>
                 </v-form>
               </v-card-text>
             </v-card>
@@ -67,17 +74,38 @@ export default {
     expand: false,
     dialog: false,
     URL: '',
-    inputRules: [
-      v => !!v || 'Name is required',
-    ],
+    errors: [],
   }),
 
   methods: {
-    validate() {
-      this.$refs.form.validate();
+    checkForm(e) {
+      console.log('errors');
+      this.errors = [];
+      console.log('got past array');
+      if (this.URL === '') {
+        this.errors.push('URL required.');
+      }
+      console.log('got past first if');
+
+      if (this.isValidURL(this.URL)) {
+        console.log('in valid URL');
+        this.errors.push('Valid URL required');
+        console.log('errors');
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+
+      return e.preventDefault();
+    },
+
+    isValidUrl(value) {
+      return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
     },
   },
 };
+
 </script>
 
 <style scoped>
