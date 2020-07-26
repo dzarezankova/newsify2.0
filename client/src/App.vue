@@ -1,12 +1,13 @@
 <template>
   <v-app>
     <v-content>
-      <v-row :class = "`banner px-6`" align = "center" justify = "space-around">
-          <h3 class = "font-weight-medium grey--text text--darken-1"> Newsify </h3>
-        <div class = "ma-2">
-            <v-btn fab small depressed @click.stop="dialog = true">
+      <v-row :class = "`banner px-6`" align = "center">
+        <div class = "ma-2 text-center">
+            <v-btn fab small depressed @click.stop="dialog = true" class = "mt-6">
               <v-icon color = "grey"> add </v-icon>
             </v-btn>
+            <div class = "text--secondary text-center text-overline"
+                style = "font-size: 0.65em"> Add Article</div>
             <v-dialog
               v-model="dialog"
               max-width="290"
@@ -35,15 +36,14 @@
             </v-dialog>
           </div>
       </v-row>
-      <h4 class = "text-center mt-2"> News Articles </h4> {{text}}
+          <h1 class = "font-weight-medium grey--text text--darken-1 text-center
+          mt-2 text-overline"> Newsify </h1>
       <v-row>
       <v-col cols = 4 v-for = "article in articles" :key = "article.item" :class = "`fixed`">
         <helloworld :title = "article.title" :text = "article.text"></helloworld>
       </v-col>
       </v-row>
-      <div class = "`top`">
-      <h4 class = "text-center mt-2"> News Articles </h4> </div>
-      <img src = "/plot.png" alt = "my plot">
+      <!-- <img src = "/plot.png" alt = "my plot"> -->
     </v-content>
   </v-app>
 </template>
