@@ -12,7 +12,7 @@
               <v-icon color = "#FBC02D"> expand_more</v-icon></v-btn></div>
                <h5 class = "mt-4 mr-4 text-left"> {{title}} </h5>
                 <div class = "text--secondary text-right mr-6"
-                style = "font-size: 0.65em">NBC News </div>
+                style = "font-size: 0.65em">{{company}} </div>
             </v-col>
           </v-row>
           <v-card-text v-if = "expand" class = " mt-1"
@@ -27,6 +27,6 @@ export default {
     deleted: false,
   }),
 
-  props: ['title', 'text'],
+  props: ['title', 'text', 'deleted', 'company'],
 };
 </script>

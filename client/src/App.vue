@@ -40,7 +40,8 @@
           mt-2 text-overline"> Newsify </h1>
       <v-row>
       <v-col cols = 4 v-for = "article in articles" :key = "article.item" :class = "`fixed`">
-        <helloworld :title = "article.title" :text = "article.text"></helloworld>
+        <helloworld :title = "article.title" :text = "article.text"
+        :company = 'article.company'></helloworld>
       </v-col>
       </v-row>
     </v-content>
@@ -63,9 +64,9 @@ export default {
     ],
     loading: false,
     articles: [
-      { title: 'Coronavirus: the first three months as it happened ', text: 'As of April 5, Global News is only reporting lab-confirmed cases for British Columbia, Alberta and Manitoba, where provincial health authorities are including probable and “epidemiologically-linked” cases in their official count.' },
-      { title: 'Coronavirus: Wow', text: 'Newly confirmed COVID-19 cases reported by the provinces have brought the national total to over 113,000 cases and more than 8,800 deaths. More than 99,000 people have since recovered — more than 88 per cent of the remaining confirmed cases. More than 4.3 million people have been tested.' },
-      { title: 'The risks behind Covid-19 ', text: 'Data provided by the Public Health Agency of Canada shows that most cases are the result of community spread, while a little less than a quarter are the result of travelling or close contact with a traveller.' },
+      { title: 'Coronavirus: the first three months as it happened ', company: 'NBC News', text: 'As of April 5, Global News is only reporting lab-confirmed cases for British Columbia, Alberta and Manitoba, where provincial health authorities are including probable and “epidemiologically-linked” cases in their official count.' },
+      { title: 'Coronavirus: Wow', company: 'CBC News', text: 'Newly confirmed COVID-19 cases reported by the provinces have brought the national total to over 113,000 cases and more than 8,800 deaths. More than 99,000 people have since recovered — more than 88 per cent of the remaining confirmed cases. More than 4.3 million people have been tested.' },
+      { title: 'The risks behind Covid-19 ', company: 'NBC News', text: 'Data provided by the Public Health Agency of Canada shows that most cases are the result of community spread, while a little less than a quarter are the result of travelling or close contact with a traveller.' },
     ],
   }),
 
