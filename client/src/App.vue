@@ -39,53 +39,47 @@
             </v-dialog>
           </div>
       </v-row>
-      <h4 class = "text-center mt-2"> News Articles </h4>
-      <v-row v-for = "article in articles" :key = "article">
-      <v-col cols = 4>
-      <v-card class = "mx-6" outlined rounded>
-        <v-row justify = "center" align = "center">
-            <v-col cols = 4 align = "center" justify = "center" class = "mt-4">
-              <v-btn text small depressed>
-            <v-icon color = "#FBC02D" size = "3rem"> delete </v-icon> </v-btn>
-            <div class = "text--secondary mt-2" style = "font-size: 0.65em">Delete </div>
-            </v-col>
-            <v-col cols = 8 align = "center" justify = "center">
-              <div class = "text-right ma-n2 my-n4">
-              <v-btn small text right @click = "expand = !expand">
-              <v-icon color = "#FBC02D"> expand_more</v-icon></v-btn></div>
-               <h5 class = "mt-4 mr-4 text-left"> {{article.title}} </h5>
-                <div class = "text--secondary text-right mr-6"
-                style = "font-size: 0.65em">NBC News </div>
-            </v-col>
-          </v-row>
-          <v-card-text v-if = "expand" class = " mt-1" style = "font-size: 0.7em">
-                   </v-card-text>
-            </v-card>
-            </v-col>
+      <h4 class = "text-center mt-2"> News Articles </h4> {{text}}
+      <v-row>
+      <v-col cols = 4 v-for = "article in articles" :key = "article.item" :class = "`fixed`">
+        <helloworld :title = "article.title" :text = "article.text"></helloworld>
+      </v-col>
       </v-row>
     </v-content>
   </v-app>
 </template>
-
 <script>
 // const urlExists = require('url-exists');
+import helloworld from './components/HelloWorld.vue';
+
 const axios = require('axios');
 
 export default {
   name: 'App',
   data: () => ({
-    expand: false,
     dialog: false,
+    text: '',
     URL: '',
     inputRules: [
       (value) => !!value || 'Required.',
       (value) => !this.isValidURL(value),
     ],
     loading: false,
-    article: [
-      { title: 'Title 1', text: 'Show this shitShow this shitShow this shitShow this shitShow this shit Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+    articles: [
+      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
     ],
   }),
+
+  components: {
+    helloworld,
+  },
 
   methods: {
     submit() {
@@ -107,13 +101,13 @@ export default {
     },
 
     fetchText() {
-      console.log('in fetchtext');
       axios.post('http://localhost:8081', {
         URL: this.URL,
       })
         .then((response) => {
           this.loading = false;
           this.text = response; // add text and then title and then add to array
+          console.log(response);
           this.dialog = false;
         });
       console.log(this.dialog);
