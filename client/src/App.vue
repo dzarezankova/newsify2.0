@@ -43,7 +43,6 @@
         <helloworld :title = "article.title" :text = "article.text"></helloworld>
       </v-col>
       </v-row>
-      <!-- <img src = "/plot.png" alt = "my plot"> -->
     </v-content>
   </v-app>
 </template>
@@ -64,14 +63,10 @@ export default {
     ],
     loading: false,
     articles: [
-      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened ', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
-      { title: 'Coronavirus: the first three months as it happened pt. 2222222222', text: 'Show this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow this shitShow thishitShow this shitShow this shitShow this shitShow this shitShow this shit' },
+      { title: 'Coronavirus: the first three months as it happened ', text: 'As of April 5, Global News is only reporting lab-confirmed cases for British Columbia, Alberta and Manitoba, where provincial health authorities are including probable and “epidemiologically-linked” cases in their official count.' },
+      { title: 'Coronavirus: Wow', text: 'Newly confirmed COVID-19 cases reported by the provinces have brought the national total to over 113,000 cases and more than 8,800 deaths. More than 99,000 people have since recovered — more than 88 per cent of the remaining confirmed cases. More than 4.3 million people have been tested.' },
+      { title: 'The risks behind Covid-19 ', text: 'Data provided by the Public Health Agency of Canada shows that most cases are the result of community spread, while a little less than a quarter are the result of travelling or close contact with a traveller.' },
+      { title: 'Wow, Covid-19 Sucks!', text: 'Community transmission means the disease is being passed on and creating cases that aren’t linked to travel or a known confirmed case. This spread can be difficult to track, especially when not everyone with COVID-19 may get tested and many do not show symptoms' },
     ],
   }),
 
