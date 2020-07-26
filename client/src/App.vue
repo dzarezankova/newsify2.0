@@ -2,11 +2,7 @@
   <v-app>
     <v-content>
       <v-row :class = "`banner px-6`" align = "center" justify = "space-around">
-        <div class = "text-center">
           <h3 class = "font-weight-medium grey--text text--darken-1"> Newsify </h3>
-          <div class = "text--secondary" style = "font-size: 0.65em">
-        summarize covid-19 articles</div>
-        </div>
         <div class = "ma-2">
             <v-btn fab small depressed @click.stop="dialog = true">
               <v-icon color = "grey"> add </v-icon>
@@ -45,6 +41,9 @@
         <helloworld :title = "article.title" :text = "article.text"></helloworld>
       </v-col>
       </v-row>
+      <div class = "`top`">
+      <h4 class = "text-center mt-2"> News Articles </h4> </div>
+      <img src = "/plot.png" alt = "my plot">
     </v-content>
   </v-app>
 </template>
@@ -58,7 +57,6 @@ export default {
   name: 'App',
   data: () => ({
     dialog: false,
-    text: '',
     URL: '',
     inputRules: [
       (value) => !!value || 'Required.',
@@ -106,9 +104,12 @@ export default {
       })
         .then((response) => {
           this.loading = false;
-          this.text = response; // add text and then title and then add to array
-          console.log(response);
+          const insert = {};
+          insert.text = response.data.URL;
+          insert.title = response.data.title;
+          this.articles.unshift(insert);
           this.dialog = false;
+          console.log(response);
         });
       console.log(this.dialog);
     },
@@ -119,6 +120,12 @@ export default {
 <style scoped>
   .banner{
     border-bottom: 5px solid #FBC02D;
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+
+  .top {
+    border-top: 5px solid #FBC02D;
     margin-left: 25px;
     margin-right: 25px;
   }
