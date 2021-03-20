@@ -16,7 +16,7 @@ html5lib==1.1
 idna==2.10
 ipaddress==1.0.22
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 macholib==1.5.1
 MarkupSafe==1.1.1
 matplotlib==1.3.1
