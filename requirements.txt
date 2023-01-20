@@ -21,7 +21,7 @@ macholib==1.5.1
 MarkupSafe==1.1.1
 matplotlib==1.3.1
 MeaningCloud-python==1.2.2
-mechanize==0.4.5
+mechanize==0.4.6
 modulegraph==0.10.4
 numpy==1.8.0rc1
 py2app==0.7.3
